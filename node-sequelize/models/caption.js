@@ -15,7 +15,7 @@ module.exports = (sequelize, DataTypes) => {
         foreignKey: 'user_id',
         as: 'user'
       });
-      Caption.belongsTo(Models.Image, {
+      Caption.belongsTo(models.Image, {
         foreignKey: 'image_id',
         as: 'image'
       })
