@@ -1,5 +1,6 @@
 var createError = require('http-errors');
 var express = require('express');
+var session = require('express-session');
 var path = require('path');
 var cookieParser = require('cookie-parser');
 var logger = require('morgan');
@@ -8,6 +9,24 @@ var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+const oneDay = 1000 * 60 * 60 * 24;
+
+const {
+  SESS_SECRET = 'mysecretsecret',
+  SESS_LIFETIME = oneDay
+} = process.env;
+
+//Session
+app.use(session({
+  resave: false,
+  saveUninitialized: false,
+  secret: SESS_SECRET,
+  cookie: {
+    maxAge: SESS_LIFETIME
+  }
+}))
+
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
