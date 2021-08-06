@@ -2,23 +2,51 @@ var express = require('express');
 var router = express.Router();
 const imageController = require('../controllers').imageController;
 const captionController = require('../controllers').captionController;
+const userController = require('../controllers').userController;
 
-/* GET home page. */
 router.get('/', function(req, res, next) {
   res.render('index', { title: 'Express' });
 });
 
-router.get('/login', function(req, res, next) {
+const redirectLogin = (req, res, next) => {
+  if(!req.session.userId) {
+    res.redirect('/login');
+  } else {
+    next();
+  }
+}
+
+const redirectHome = (req, res, next) => {
+  if(req.session.userId) {
+    res.redirect('/home') 
+  } else {
+    next();
+  }
+}
+
+router.get('/login', redirectHome, function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
 
-router.get('/register', function(req, res, next) {
+router.get('/register', redirectHome, function(req, res, next) {
   res.render('register', { title: 'Express' });
 });
 
-router.get('/home', function(req, res, next) {
+router.get('/home', redirectLogin, function(req, res, next) {
   res.render('home', { title: 'Express' });
 });
+
+router.post('/login', redirectHome, (req, res) => {
+  const {username, password } = req.body;
+})
+
+router.post('/register', redirectHome, userController.createUser);
+
+router.post('/logout', redirectLogin, (req, res) => {
+  
+})
+
+
 
 router.get('/api/image', imageController.getAllImages);
 router.get('/api/image/:id', imageController.getImageById);
