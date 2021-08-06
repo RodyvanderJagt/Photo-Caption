@@ -36,9 +36,7 @@ router.get('/home', redirectLogin, function(req, res, next) {
   res.render('home', { title: 'Express' });
 });
 
-router.post('/login', redirectHome, (req, res) => {
-  const {username, password } = req.body;
-})
+router.post('/login', redirectHome, userController.loginUser);
 
 router.post('/register', redirectHome, userController.createUser);
 
