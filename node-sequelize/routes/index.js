@@ -40,9 +40,13 @@ router.get('/register', redirectHome, function(req, res, next) {
   res.render('register', { title: 'Express' });
 });
 
-router.get('/home', redirectLogin, function(req, res, next) {
-  console.log(res.locals.user.name);
-  res.render('home', { title: 'Express', user: res.locals.user});
+router.get('/home', redirectLogin, async function(req, res, next) {
+  const images = await imageController.getAllImages();
+  if(images) {
+      res.render('home', { title: 'Express', user: res.locals.user, content: images});
+  } else {
+      res.status(404).send('Images not found'); 
+  }  
 });
 
 router.post('/login', redirectHome, userController.loginUser);
@@ -54,9 +58,9 @@ router.post('/logout', redirectLogin, userController.logoutUser);
 
 
 
-router.get('/api/image', imageController.getAllImages);
+/*router.get('/api/image', imageController.getAllImages);
 router.get('/api/image/:id', imageController.getImageById);
 router.post('/api/image', imageController.addImage);
-router.post('/api/image/:id', captionController.addCaptionToImage);
+router.post('/api/image/:id', captionController.addCaptionToImage);*/
 
 module.exports = router;

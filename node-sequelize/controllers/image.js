@@ -1,11 +1,18 @@
 const Image = require('../models').Image;
 const Caption = require('../models').Caption;
 
-const getAllImages = (req, res) => {
+const getAllImages = () => {
+    return Image.findAll()
+    .then((images) => images)
+    .catch((error) => {throw Error(error)} );
+}
+
+
+/* const getAllImages = (req, res) => {
     return Image.findAll()
     .then((images) => res.status(200).send(images))
     .catch((error) => res.status(400).send(error));
-}
+} */
 
 const getImageById = (req, res) => {
     return Image.findByPk(req.params.id, {

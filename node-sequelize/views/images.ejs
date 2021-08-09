@@ -1,22 +1,8 @@
-<!DOCTYPE html>
-
 <html>
 <head>
     <link rel="stylesheet" href="/stylesheets/style.css">
 </head>
 <body>
-    <h1>Welcome!</h1>
-    <nav>
-        <a href = '/'>Main</a>
-    </nav>
-    <form method='post' action = '/logout'>
-        <button>Logout</button>
-    </form>
-    <ul>
-        <li>Name: <%= user.name %> </li>
-        <li>Created At: <%= user.createdAt %></li>
-    </ul>
-
     <div class = "images">
         <% content.forEach(image => { %>
             <div class = "container">
@@ -24,6 +10,5 @@
             </div>
         <% }); %>
     </div>
-
 </body>      
 </html>
