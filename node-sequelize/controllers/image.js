@@ -7,13 +7,6 @@ const getAllImages = () => {
     .catch((error) => {throw Error(error)} );
 }
 
-
-/* const getAllImages = (req, res) => {
-    return Image.findAll()
-    .then((images) => res.status(200).send(images))
-    .catch((error) => res.status(400).send(error));
-} */
-
 const getImageById = (req, res) => {
     return Image.findByPk(req.params.id, {
         include: [{

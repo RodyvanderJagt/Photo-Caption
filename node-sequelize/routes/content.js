@@ -14,6 +14,13 @@ router.get('/images', async (req, res) => {
     }
 });
 
+router.get('/images/:id', imageController.getImageById);
+
+router.post('/images', imageController.addImage);
+
+router.post('/images/:id', captionController.addCaptionToImage);
+
+
 
 
 module.exports = router;

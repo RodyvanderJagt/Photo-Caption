@@ -17,11 +17,25 @@
         <li>Created At: <%= user.createdAt %></li>
     </ul>
 
-    <div class = "images">
+    <div class = "container">
         <% content.forEach(image => { %>
-            <div class = "container">
+            <div class = "image_container">
                 <img src = <%= image.filepath %>>
             </div>
+            <div class = "caption_container">
+                <ul>
+                    <% image.captionObjects.forEach(captionObject => { %>
+                        <li> <%= captionObject.caption %> </li>
+                    <% }); %>
+                </ul>
+            </div>
+            <form action=<%="/content/images/"+image.id%> method="post">
+                <h2>Submit caption</h2>  
+                <div class="input-field">
+                    <input type="text" name="caption" id="caption" placeholder="Enter caption" required>
+                </div>
+                <input type="submit" value="Submit">
+            </form>
         <% }); %>
     </div>
 

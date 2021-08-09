@@ -20,15 +20,12 @@ h1 {
   display: inline;
 }
 
-img {
-  display: flex;
-}
-
-.images {
-  width: 840px;
-}
-
 .container {
+  display:block;
+  max-width: 840px;
+}
+
+.image_container {
   display:block;
   width: 100%;
   height:auto;
@@ -37,7 +34,7 @@ img {
   padding: 34.37% 50px 0 0;
 }
 
-.container img {
+.image_container img {
   display:block;
   max-width:100%;
   max-height:100%;
