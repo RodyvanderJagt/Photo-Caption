@@ -26,8 +26,8 @@ const createUser = async (req, res) => {
         name: req.body.username,
         password: salted_password
     })
-    .then(user => res.status(201).send(user.name))
-    .catch(error => res.status(400).send(error));
+    .then(user => res.redirect('/home'))
+    .catch(error => res.redirect('/register'));
 }
 
 const loginUser = (req, res) => {
@@ -52,7 +52,7 @@ const loginUser = (req, res) => {
                 }
             });
         } else {
-            res.status(404).send('User not found');
+            res.redirect('/login');
         }
     })
     .catch((error) => res.status(400).send(error));
