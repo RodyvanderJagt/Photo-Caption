@@ -40,9 +40,8 @@ router.post('/login', redirectHome, userController.loginUser);
 
 router.post('/register', redirectHome, userController.createUser);
 
-router.post('/logout', redirectLogin, (req, res) => {
-  
-})
+router.post('/logout', redirectLogin, userController.logoutUser);
+
 
 
 

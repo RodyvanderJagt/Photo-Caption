@@ -2,7 +2,8 @@ const User = require('../models').User;
 const bcrypt = require('bcryptjs');
 
 const {
-    SALT_ROUNDS = 10
+    SALT_ROUNDS = 10,
+    SESS_NAME = 'sid'
 } = process.env;
 
 async function hashPassword(password) {
@@ -47,7 +48,19 @@ const loginUser = async (req, res) => {
     .catch((error) => res.status(400).send(error));
 }
 
+const logoutUser = (req, res) => {
+    req.session.destroy(err => {
+        if (err) {
+            console.log(err);
+            return res.redirect('/home');
+        }
+    })
+    res.clearCookie(SESS_NAME);
+    res.redirect('/login');
+}
+
 module.exports = { 
     createUser,
-    loginUser
+    loginUser,
+    logoutUser
 }

@@ -13,12 +13,14 @@ var app = express();
 const oneDay = 1000 * 60 * 60 * 24;
 
 const {
+  SESS_NAME = 'sid',
   SESS_SECRET = 'mysecretsecret',
   SESS_LIFETIME = oneDay
 } = process.env;
 
 //Session
 app.use(session({
+  name: SESS_NAME,
   resave: false,
   saveUninitialized: false,
   secret: SESS_SECRET,
