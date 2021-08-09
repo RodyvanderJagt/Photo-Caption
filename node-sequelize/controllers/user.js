@@ -10,6 +10,16 @@ async function hashPassword(password) {
     return await bcrypt.hash(password, SALT_ROUNDS)
 }
 
+const findUserById = userId => {
+    return User.findAll({
+        where: {
+            id: userId
+        }
+    })
+    .then(users => users[0])
+    .catch(error => {throw Error(error)});
+}
+
 const createUser = async (req, res) => {
     const salted_password = await hashPassword(req.body.password);
     return User.create({
@@ -20,7 +30,7 @@ const createUser = async (req, res) => {
     .catch(error => res.status(400).send(error));
 }
 
-const loginUser = async (req, res) => {
+const loginUser = (req, res) => {
     const {username, password} = req.body;
     return User.findAll({
         where: {
@@ -60,6 +70,7 @@ const logoutUser = (req, res) => {
 }
 
 module.exports = { 
+    findUserById,
     createUser,
     loginUser,
     logoutUser

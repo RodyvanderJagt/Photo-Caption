@@ -24,6 +24,14 @@ const redirectHome = (req, res, next) => {
   }
 }
 
+router.use(async (req, res, next) => {
+  const userId = req.session.userId;
+  if (userId) {
+    res.locals.user = await userController.findUserById(userId);
+  }
+  next();
+})
+
 router.get('/login', redirectHome, function(req, res, next) {
   res.render('login', { title: 'Express' });
 });
@@ -33,7 +41,8 @@ router.get('/register', redirectHome, function(req, res, next) {
 });
 
 router.get('/home', redirectLogin, function(req, res, next) {
-  res.render('home', { title: 'Express' });
+  console.log(res.locals.user.name);
+  res.render('home', { title: 'Express', user: res.locals.user});
 });
 
 router.post('/login', redirectHome, userController.loginUser);
